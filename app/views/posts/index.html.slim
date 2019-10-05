@@ -2,27 +2,26 @@ h1 インターンプログラム課題
 h2 簡易SNSアプリの開発
 
 - if user_signed_in?
-    h4 メールアドレス：= current_user.email
-    = lint_to "log out", destroy_user_session_path, method: :delete
+  p ログインメールアドレス:#{current_user.email}
 
-table
-  thead
-    tr
-      th Content
-      th User
-      th
-      th
-      th
-
-  tbody
-    - @posts.each do |post|
+  table
+    thead
       tr
-        td = post.content
-        td = post.user_id
-        td = link_to 'Show', post
-        td = link_to 'Edit', edit_post_path(post)
-        td = link_to 'Destroy', post, data: { confirm: 'Are you sure?' }, method: :delete
+        th Content
+        th User
+        th
+        th
+        th
+
+    tbody
+      - @posts.each do |post|
+        tr
+          td = post.content
+          td = post.user_id
+          td = link_to 'Show', post
+          td = link_to 'Edit', edit_post_path(post)
+          td = link_to 'Destroy', post, data: { confirm: 'Are you sure?' }, method: :delete
 
 br
 
-= link_to 'New Post', new_post_path
+  = link_to 'New Post', new_post_path
