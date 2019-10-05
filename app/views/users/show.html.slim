@@ -1,0 +1,5 @@
+h1 Users#show
+p Find me in app/views/users/show.html.slim
+p posts:
+- @posts.each do |post|
+    p id:#{post.id} content:#{post.content}
