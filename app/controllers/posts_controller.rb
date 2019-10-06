@@ -10,6 +10,11 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+    @comments = @post.comments
+    @comment = Comment.new
+    @comment.user_id = current_user.id
+    @comment.post_id = Post.find(params[:id])
+    @comment.save
   end
 
   # GET /posts/new

@@ -1,3 +1,4 @@
+h1 詳細
 p#notice = notice
 
 p
@@ -6,6 +7,21 @@ p
 p
   strong User:
   = @post.user_id
+  br
+  strong Name:
+  = @post.user.name
+
+h2 コメント
+- @comments.each do |comment|
+  p ---投稿者:#{comment.user.name}---
+  h3 コメント:#{comment.comments}
+  br
+
+= form_for [@post, @comment] do |f|
+    = f.label :comment
+    br
+    = f.text_area :comments
+    = f.submit
 
 => link_to 'Edit', edit_post_path(@post)
 '|
