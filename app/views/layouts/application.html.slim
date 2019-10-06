@@ -1,6 +1,12 @@
 html
-  head
-    title AppName
+  title SNS-app 
+
+  head.navbar.navbar-fixed-top.navbar-inverse
+    .container
+      = link_to '/', id: "logo"
+        | インターンプログラム課題
+        span
+    
     = csrf_meta_tags
     = csp_meta_tag
 
@@ -8,4 +14,4 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
 
   body
-    = yield
+    == yield
