@@ -6,10 +6,10 @@
         - @post.errors.full_messages.each do |message|
           li = message
 
-  .field
+  .field.text-center
     = f.label :content
-    = f.text_area :content
-  / .field
-  /   = f.label :user_id
-  /   = f.number_field :user_id
-  .actions = f.submit
+    br
+    = f.text_area :content, size: "80x10"
+
+  br
+  .actions.text-center = f.submit

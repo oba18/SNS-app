@@ -1,37 +1,28 @@
-h1 インターンプログラム課題
-h2 簡易SNSアプリの開発
-
-- if user_signed_in?
-  p ログインID：#{current_user.id}
-  p ログインNAME：#{current_user.name}
-  p ログインメールアドレス:#{current_user.email}
-
-  table
-    thead
-      tr
-        th Content
-        th User
-        th
-        th
-        th
-
-    tbody
-      - @posts.each do |post|
-        tr
-          td = post.content
-          td = post.user_id
-          td = link_to 'Show', post
-          td = link_to 'Edit', edit_post_path(post)
-          td = link_to 'Destroy', post, data: { confirm: 'Are you sure?' }, method: :delete
-
+br
+h1.text-center Time Line
+br
+p.text-center
+  = link_to new_post_path, class: 'btn btn-primary'
+    | New Post
+    span
+- @posts.each do |post|  
+  .card.w-75.mx-auto
+    p.card-header 
+      投稿者 
+      a href="/users/#{post.user.id}" #{post.user.name}
+      ' ||
+      投稿日時 #{post.created_at.strftime("%Y年%m月%d日 %H:%M:%S")}
+    .card-body
+      p.card-text
+        = link_to post
+          | #{post.content}
+          span
+    .card-footer
+      p.text-right コメント数：#{post.comments.count}
   br
 
-  = link_to 'New Post', new_post_path
-  br
-  = link_to "Sign Out",destroy_user_session_path, method: :delete
+
+  
 
 - if !user_signed_in?
-  h2 Please Log in or Sign up
-  = link_to "Log in", new_user_session_path, class: 'post'
-  br 
-  = link_to "Sign up", new_user_registration_path, class: 'post'
+  h2.text-center Please Log in or Sign up

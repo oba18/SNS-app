@@ -1,8 +1,29 @@
-h1 Users#show
-p Find me in app/views/users/show.html.slim
-p posts:
+br
+h2.text-center #{@user.name}
+hr
+h4.text-center email:#{@user.email}&nbsp;&nbsp;Followers:0&nbsp;&nbsp;Followed:0
+br
+h2.text-center Posts(#{@user.posts.count}):
+br
 - @posts.each do |post|
-    p name:#{@user.name}
-    p id:#{post.id} content:#{post.content}
+    .card.w-75.mx-auto
+      p.card-header 投稿日時：#{post.created_at.strftime("%Y年%m月%d日 %H:%M:%S")}
+      .card-body
+        h6.card-text
+           = link_to post_path
+            | #{post.content}
+            span
+        .btn-toolbar
+          .btn-group
+            = link_to edit_post_path(post), class: 'btn btn-primary btn-sm'
+              | Edit
+              span
+            = link_to post, data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-primary btn-sm'
+              | Destroy
+              span
+    br
 
-= link_to "Sign Out",destroy_user_session_path, method: :delete
+p.text-center
+  = link_to new_post_path, class: 'btn btn-primary'
+    | New Post
+    span

@@ -1,7 +1,9 @@
-h1 Users#index
-p Find me in app/views/users/index.html.slim
-- @users.each do |user|
- p name:#{user.name}
- p id:#{user.id}
- p email:#{user.email}
-
+div.text-center
+  h1 User List
+  br
+  hr
+  - @users.each do |user|
+    h3
+      a href="/users/#{user.id}" #{user.name}
+    p Email:&nbsp;#{user.email}&nbsp;&nbsp;&nbsp;Posts:&nbsp;#{user.posts.count}&nbsp;&nbsp;&nbsp;Follws:&nbsp;0&nbsp;&nbsp;&nbsp;Follwers:&nbsp;0
+    hr
