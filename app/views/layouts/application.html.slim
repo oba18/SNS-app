@@ -1,17 +1,30 @@
 html
-  title SNS-app 
-
-  head.navbar.navbar-fixed-top.navbar-inverse
-    .container
-      = link_to '/', id: "logo"
-        | インターンプログラム課題
-        span
-    
+  head
+    title SNS-app 
     = csrf_meta_tags
     = csp_meta_tag
 
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+
+    nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+      a.navbar-brand href="/" インターンプログラム課題
+    
+      .collapse.navbar-collapse#navbarSupportedContent
+        ul.navbar-nav.mr-auto
+          a.nav-link href=root_path Time Line
+          - if user_signed_in?
+            a.nav-link href="/users/#{current_user.id}" Your Profile
+          a.nav-link href=users_path User List
+          a.nav-link href=new_user_registration_path Sign Up
+          a.nav-link href=new_user_session_path Sign In
+          = link_to destroy_user_session_path, method: :delete ,class: 'nav-link'
+            | Sign Out
+            span
+        ul.navbar-nav
+          - if user_signed_in?
+            a.nav-link href='/users/#{current_user.id}' #{current_user.name}
+            a.nav-link href='/users/#{current_user.id}' #{current_user.email}
 
   body
     == yield
