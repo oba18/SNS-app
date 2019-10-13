@@ -21,5 +21,10 @@ br
           | #{post.content}
           span
     .card-footer
-      p.text-right コメント数：#{post.comments.count}
+      p.text-right 
+        |コメント数：#{post.comments.count}
+        | &nbsp;
+        | |
+        | &nbsp;
+        |👍：#{post.likes.count}
   br

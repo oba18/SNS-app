@@ -1,26 +1,34 @@
 br
 h2.text-center #{@user.name}
 hr
-h4.text-center email:#{@user.email}&nbsp;&nbsp;Followers:0&nbsp;&nbsp;Followed:0
-br
+h4.text-center 
+  | email:#{@user.email}&nbsp;|&nbsp;Followers:0&nbsp;|&nbsp;Followed:0&nbsp;|&nbsp;
+  = link_to "/users/#{@user.id}/likes"
+    | 👍:#{@user.likes.count}
 h2.text-center Posts(#{@user.posts.count}):
 br
 - @posts.each do |post|
     .card.w-75.mx-auto
-      p.card-header 投稿日時：#{post.created_at.strftime("%Y年%m月%d日 %H:%M:%S")}
+      p.card-header 
+        |投稿日時：#{post.created_at.strftime("%Y年%m月%d日 %H:%M:%S")}
+        | &nbsp;
+        | |
+        | &nbsp;
+        |👍：#{post.likes.count}
       .card-body
         h6.card-text
-           = link_to post_path
+           = link_to "/posts/#{post.id}"
             | #{post.content}
             span
-        .btn-toolbar
-          .btn-group
-            = link_to edit_post_path(post), class: 'btn btn-primary btn-sm'
-              | Edit
-              span
-            = link_to post, data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-primary btn-sm'
-              | Destroy
-              span
+        - if @user == current_user
+          .btn-toolbar
+            .btn-group
+              = link_to edit_post_path(post), class: 'btn btn-primary btn-sm'
+                | Edit
+                span
+              = link_to post, data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-primary btn-sm'
+                | Destroy
+                span
     br
 
 p.text-center

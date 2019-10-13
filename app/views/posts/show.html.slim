@@ -4,26 +4,35 @@ br
 .card.w-75.mx-auto
   p.card-header
     | 投稿者:
-    = link_to user_path
+    = link_to "/users/#{@post.user.id}"
       | #{@post.user.name}
       span
     | &nbsp;
     | |
     | &nbsp;
     | 投稿日時:#{@post.created_at.strftime("%Y年%m月%d日 %H:%M:%S")}
-    | いいね:
+    | &nbsp;
+    | |
+    | &nbsp;
+    = link_to "/posts/#{@post.id}/likes"
+      | 👍
+      span
     = @post.likes.count
-    - if user_signed_in?
-      - if current_user.already_liked?(@post)
-        = link_to post_like_path(@post), method: :delete, class: 'btn btn-primary', remote: true
-          | いいねを取り消す
-      - else
-        = link_to post_likes_path(@post), method: :create, class: 'btn btn-primary'
-          | いいね
   .card-body
     h4.text-center Post
     hr
     h2.card-text #{@post.content}
+    br
+    hr
+    - if user_signed_in?
+      - if current_user.already_liked?(@post)
+        p.text-right
+          = link_to post_like_path(@post), method: :delete, class: 'btn btn-outline-primary', remote: true
+            | 👍をはずす
+      - else
+        p.text-right
+          = link_to post_likes_path(@post), method: :post, class: 'btn btn-outline-primary'
+            | 👍
     br
     br
     h4.text-center Comments
@@ -53,7 +62,7 @@ br
       br
        = f.submit 'Comment',class: 'btn btn-primary btn-lg my-1 mb-5 px-5'
   br
-
+hr
   p.text-center
     = link_to posts_path, class: 'btn btn-primary'
       | Back

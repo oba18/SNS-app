@@ -1,0 +1,18 @@
+h1.text-center 👍
+h2.text-center User List
+hr
+
+- if !@post.liked_users.any?
+    h3.text-center No User
+- else
+  - @post.liked_users.each do |user|
+    h3.text-center
+      = link_to "/users/#{user.id}"
+        | #{user.name}
+        span
+    hr
+br
+p.text-center
+  = link_to "/posts/#{@post.id}", class: 'btn btn-primary'
+    | Back
+    span

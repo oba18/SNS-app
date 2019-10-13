@@ -1,0 +1,24 @@
+h1.text-center 👍 Posts:
+br
+- if !@user.liked_posts.any?
+    h2.text-center Nothing
+- else
+    - @user.liked_posts.each do |post|
+        .card.w-75.mx-auto
+            p.card-header 
+                |投稿日時：#{post.created_at.strftime("%Y年%m月%d日 %H:%M:%S")}
+                | &nbsp;
+                | |
+                | &nbsp;
+                |👍：#{post.likes.count}
+            .card-body
+                h6.card-text
+                = link_to "/posts/#{post.id}"
+                    | #{post.content}
+                    span
+        br
+hr
+p.text-center
+  = link_to "/users/#{@user.id}", class: 'btn btn-primary'
+    | Back
+    span

@@ -7,4 +7,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @posts = @user.posts
   end
+
+  def like
+    @user = User.find(params[:id])
+  end
 end
