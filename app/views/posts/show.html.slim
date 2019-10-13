@@ -35,10 +35,10 @@ br
             | 👍
     br
     br
-    h4.text-center Comments
+    h4.text-center Comments (#{@post.comments.count})
     hr
     - @comments.each do |comment| 
-      p #{comment.comments} 
+      p #{comment.comments}
       p.text-right
         | 投稿者:
         = link_to user_path
