@@ -69,4 +69,7 @@ gem 'slim-rails', '3.1.3'
 
 # bootstrap
 gem 'bootstrap', '~> 4.1.1'
+gem 'bootstrap_form'
 gem 'jquery-rails'
+
+gem 'html2slim'

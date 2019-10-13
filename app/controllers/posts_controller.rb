@@ -12,7 +12,10 @@ class PostsController < ApplicationController
   def show
     @comments = @post.comments
     @comment = Comment.new
-    @comment.user_id = current_user.id
+    @like = Like.new
+    if user_signed_in?
+      @comment.user_id = current_user.id
+    end
     @comment.post_id = Post.find(params[:id])
     @comment.save
   end

@@ -3,10 +3,23 @@ p#notice = notice
 br
 .card.w-75.mx-auto
   p.card-header
-    投稿者 
-    a href="/users/#{@post.user.id}" #{@post.user.name}
-    ' ||
-    投稿日時 #{@post.created_at.strftime("%Y年%m月%d日 %H:%M:%S")}
+    | 投稿者:
+    = link_to user_path
+      | #{@post.user.name}
+      span
+    | &nbsp;
+    | |
+    | &nbsp;
+    | 投稿日時:#{@post.created_at.strftime("%Y年%m月%d日 %H:%M:%S")}
+    | いいね:
+    = @post.likes.count
+    - if user_signed_in?
+      - if current_user.already_liked?(@post)
+        = link_to post_like_path(@post), method: :delete, class: 'btn btn-primary', remote: true
+          | いいねを取り消す
+      - else
+        = link_to post_likes_path(@post), method: :create, class: 'btn btn-primary'
+          | いいね
   .card-body
     h4.text-center Post
     hr
@@ -18,24 +31,30 @@ br
     - @comments.each do |comment| 
       p #{comment.comments} 
       p.text-right
-        投稿者
+        | 投稿者:
         = link_to user_path
           | #{comment.user.name}
           span
-        投稿日時 #{@post.created_at}
+        | &nbsp;
+        | |
+        | &nbsp;
+        | 投稿日時:#{@post.created_at.strftime("%Y年%m月%d日 %H:%M:%S")}
       hr
   br
 br
 
-= form_for [@post, @comment] do |f|
-  .field.text-center
-    = f.label :comment
-    br
-    = f.text_area :comments, size: "80x10"
-    br
-    br
-    = f.submit
+- if user_signed_in?
+  = form_for [@post, @comment] do |f|
+    .field.text-center
+      = f.label :comment
+      br
+      = f.text_area :comments, size: "80x10"
+      br
+      br
+       = f.submit 'Comment',class: 'btn btn-primary btn-lg my-1 mb-5 px-5'
+  br
 
-=> link_to 'Edit', edit_post_path(@post)
-'|
-=< link_to 'Back', posts_path
+  p.text-center
+    = link_to posts_path, class: 'btn btn-primary'
+      | Back
+      span

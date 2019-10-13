@@ -16,8 +16,6 @@ html
           - if user_signed_in?
             a.nav-link href="/users/#{current_user.id}" Your Profile
           a.nav-link href=users_path User List
-          a.nav-link href=new_user_registration_path Sign Up
-          a.nav-link href=new_user_session_path Sign In
           = link_to destroy_user_session_path, method: :delete ,class: 'nav-link'
             | Sign Out
             span
@@ -27,4 +25,17 @@ html
             a.nav-link href='/users/#{current_user.id}' #{current_user.email}
 
   body
-    == yield
+    br
+    - if !user_signed_in?
+      h2.text-center
+        | Please
+        | &nbsp;
+        = link_to new_user_session_path
+          | Sign In
+          | &nbsp;
+        | or
+        | &nbsp;
+        = link_to new_user_registration_path
+          | Sign Up
+  br
+  == yield

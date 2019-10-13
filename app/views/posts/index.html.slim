@@ -1,17 +1,20 @@
 br
 h1.text-center Time Line
 br
-p.text-center
-  = link_to new_post_path, class: 'btn btn-primary'
-    | New Post
+- if user_signed_in?
+  p.text-center
+    = link_to new_post_path, class: 'btn btn-primary'
+      | New Post
     span
 - @posts.each do |post|  
   .card.w-75.mx-auto
     p.card-header 
-      投稿者 
+      | 投稿者:
       a href="/users/#{post.user.id}" #{post.user.name}
-      ' ||
-      投稿日時 #{post.created_at.strftime("%Y年%m月%d日 %H:%M:%S")}
+      | &nbsp;
+      | |
+      | &nbsp;
+      | 投稿日時:#{post.created_at.strftime("%Y年%m月%d日 %H:%M:%S")}
     .card-body
       p.card-text
         = link_to post
@@ -20,9 +23,3 @@ p.text-center
     .card-footer
       p.text-right コメント数：#{post.comments.count}
   br
-
-
-  
-
-- if !user_signed_in?
-  h2.text-center Please Log in or Sign up
