@@ -5,6 +5,7 @@ h4.text-center
   | email:#{@user.email}&nbsp;|&nbsp;Followers:0&nbsp;|&nbsp;Followed:0&nbsp;|&nbsp;
   = link_to "/users/#{@user.id}/likes"
     | 👍:#{@user.likes.count}
+  = render  partial: ‘relationships/follow_button’, locals:{user: @user} 
 h2.text-center Posts(#{@user.posts.count}):
 br
 - @posts.each do |post|

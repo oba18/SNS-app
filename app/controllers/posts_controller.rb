@@ -5,6 +5,9 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     @posts = Post.all.order(created_at: :desc)
+    @posts.each do |post|
+      logger.debug post.user.to_json()
+    end
   end
 
   # GET /posts/1
